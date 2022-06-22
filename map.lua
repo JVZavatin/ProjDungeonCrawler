@@ -64,10 +64,8 @@ function make_maze(map, w, h, playerPos)
       if map[i][j] then
         table.insert(line, 'X')
       else
-        if math.random(1, 20) == 1 then
+        if math.random(1, 10) == 1 then
           table.insert(line, 'C')
-        elseif math.random(1, 15) == 2 then
-          table.insert(line, 'E')
         else
           table.insert(line, ' ')
         end

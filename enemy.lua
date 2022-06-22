@@ -28,7 +28,7 @@ function Enemy:new(difficulty)
   	newObj = {
       nameE = "Rato grande",
       hp = 5+(math.floor(5*(difficulty/2))),
-      max_hp = 5+(math.floor(1*(difficulty/2))),
+      max_hp = 5+(math.floor(5*(difficulty/2))),
       damage = 1+(math.floor(1*(difficulty/2))),
       defense = 0,
       accuracy = 5+(math.floor(5*(difficulty/2))),

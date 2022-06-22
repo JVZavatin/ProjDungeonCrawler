@@ -67,7 +67,7 @@ function Player:addStat(player) -- abrindo bau ganha 1 stat random
   curaBau = 5
 
   if control == 1 then -- HP increase
-    io.write("HP maximo incrementado e",curaBau,"vida restaurada!\n")
+    io.write("HP maximo incrementado e ",curaBau," vida restaurada!\n")
     player.max_hp = player.max_hp + 10
     if player.hp+curaBau < player.max_hp then
       player.hp = player.hp +curaBau
@@ -77,7 +77,7 @@ function Player:addStat(player) -- abrindo bau ganha 1 stat random
     return player
 
   elseif control == 2 then -- Damage increase
-    io.write("Dano incrementado e",curaBau,"vida restaurada")
+    io.write("Dano incrementado e ",curaBau," vida restaurada!\n")
     player.damage = player.damage + 1
     if player.hp+curaBau < player.max_hp then
       player.hp = player.hp +curaBau
@@ -87,7 +87,7 @@ function Player:addStat(player) -- abrindo bau ganha 1 stat random
     return player
 
   elseif control == 3 then -- Defense increase
-    io.write("Defesa incrementada e",curaBau,"vida restaurada")
+    io.write("Defesa incrementada e ",curaBau," vida restaurada!\n")
     player.defense = player.defense + 1
     if player.hp+curaBau < player.max_hp then
       player.hp = player.hp +curaBau
@@ -97,7 +97,7 @@ function Player:addStat(player) -- abrindo bau ganha 1 stat random
     return player
 
   elseif control == 4 then -- Accuracy increase
-    io.write("Precisao incrementada e",curaBau,"vida restaurada")
+    io.write("Precisao incrementada e ",curaBau," vida restaurada!\n")
     player.accuracy = player.accuracy + 5
     if player.hp+curaBau < player.max_hp then
       player.hp = player.hp +curaBau
@@ -107,7 +107,7 @@ function Player:addStat(player) -- abrindo bau ganha 1 stat random
     return player
 
   elseif control == 5 then -- Dexterity increase
-    io.write("Destreza incrementada e",curaBau,"vida restaurada")
+    io.write("Destreza incrementada e ",curaBau," vida restaurada!\n")
     player.dexterity = player.dexterity + 5
     if player.hp+curaBau < player.max_hp then
       player.hp = player.hp +curaBau
@@ -117,7 +117,7 @@ function Player:addStat(player) -- abrindo bau ganha 1 stat random
     return player
 
   elseif control == 6 then -- Critical increase
-    io.write("Chance critica incrementado e",curaBau,"vida restaurada")
+    io.write("Chance critica incrementado e ",curaBau," vida restaurada!\n")
     player.critical = player.critical + 5
     if player.hp+curaBau < player.max_hp then
       player.hp = player.hp +curaBau
@@ -126,7 +126,7 @@ function Player:addStat(player) -- abrindo bau ganha 1 stat random
     end
     return player
   else
-    io.write("Nada acontece")
+    io.write("Nada acontece!\n")
   end
 end
 

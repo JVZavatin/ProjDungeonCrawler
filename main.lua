@@ -23,6 +23,19 @@ commandsBat = [[
   p: Pocao (+20 HP)
 ]]
 
+commandsInv = [[
+
+  Controles
+  i: sair
+]]
+
+commandsEqp = [[
+
+  Controles
+  y: Trocar
+  any: Descartar
+]]
+
 --vars glob
 difficulty = 1
 state = "mapa"
@@ -56,7 +69,7 @@ end
 
 function resetMap(map)
   map = {}
-  map = make_maze(map, mapW+2, mapH+2, playerPos)
+  map = make_maze(map, mapW+2*difficulty, mapH+2*difficulty, playerPos)
   return map
 end
 
@@ -117,6 +130,16 @@ function levelCheck()
     plr = Player:addStat(plr)
   else
   end
+end
+
+function fabricarEspada() -- cria uma nova espada aleatoria
+  sword = Sword:new(difficulty)
+  return sword
+end
+
+function fabricarArmadura() -- cria uma nova armadura aleatoria
+	armour = Armour:new(difficulty)
+  return armour
 end
 
 
@@ -215,65 +238,141 @@ while 1 == 1 do
   elseif line == "a" then
     control = tryWalk(playerPos.x, playerPos.y-1, map)
     newPlayerPos = {x = playerPos.x, y = playerPos.y-1}
+  elseif line == "i" then
+    if state == "inventario" then
+      os.execute("clear")
+      state = "mapa"
+    elseif state == "batalha" then
+    else
+      state = "inventario"
+    end
   else
     os.execute("clear")
     print("Tente novamente")
     print()
   end
-
-  if control == 0 then
-    -- PAREDE
-    print("Parede! Va por outro lugar")
-    print()
-    Screen:show(map, plr, commandsMap, state, bt)
-  elseif control == 1 then
-    -- ANDAR --
-    --Anda o personagem no mapa
-    map[playerPos.x][playerPos.y] = " "
-    playerPos = newPlayerPos
-    map[playerPos.x][playerPos.y] = "P"
-    Screen:show(map, plr, commandsMap, state, bt)
-  elseif control == 2 then 
-    -- BATALHA --
-    --Anda o personagem no mapa
-    map[playerPos.x][playerPos.y] = " "
-    playerPos = newPlayerPos
-    map[playerPos.x][playerPos.y] = "P"
-    state = batalhar()
-    if state == "gameover" then
-      print()
-      print()
-      print("  GAME OVER  ")
-      print()
-      print("  APERTE ENTER PARA RECOMEÇAR  ")
-      print()
-      local line = io.read()
-      if line == "w" then
-        start()
-      else
-        start()
-      end
-    end
-
-  elseif control == 3 then 
-    -- BAU -- 
-    --Anda o personagem no mapa
-    map[playerPos.x][playerPos.y] = " "
-    playerPos = newPlayerPos
-    map[playerPos.x][playerPos.y] = "P"
-    Player:addStat(plr) -- abre o bau
-    Screen:show(map, plr, commandsMap, state, bt)
-  elseif control == 4 then 
-    -- PROXIMA FASE -- 
-    --Anda o personagem no mapa
-    playerPos = {x = 2, y = 2} -- pos inicial
-    map = resetMap(map)
-    map[playerPos.x][playerPos.y] = "P"
-    difficulty = difficulty + 1
-    state = "mapa"
+  if state == "inventario" then
     os.execute("clear")
-    Screen:show(map, plr, commandsMap, state, bt)
+    Screen:show(map, plr, commandsInv, state, bt)
   else
-    Screen:show(map, plr, commandsMap, state, bt)
+    if control == 0 then
+      -- PAREDE
+      print("Parede! Va por outro lugar")
+      print()
+      Screen:show(map, plr, commandsMap, state, bt)
+    elseif control == 1 then
+      -- ANDAR --
+      --Anda o personagem no mapa
+      map[playerPos.x][playerPos.y] = " "
+      playerPos = newPlayerPos
+      map[playerPos.x][playerPos.y] = "P"
+      enmChance = math.random(1,20)
+      -- CHANCE DE BATALHA
+      if enmChance <= 1 then
+        os.execute("clear")
+        state = "batalha"
+        state = batalhar()
+        if state == "gameover" then
+          print()
+          print()
+          print("  GAME OVER  ")
+          print()
+          print("  APERTE ENTER PARA RECOMEÇAR  ")
+          print()
+          local line = io.read()
+          if line == "w" then
+            start()
+          else
+            start()
+          end
+        end
+      else
+        Screen:show(map, plr, commandsMap, state, bt)
+      end      
+    elseif control == 2 then 
+      -- BATALHA --
+      --Anda o personagem no mapa
+      map[playerPos.x][playerPos.y] = " "
+      playerPos = newPlayerPos
+      map[playerPos.x][playerPos.y] = "P"
+      state = batalhar()
+      if state == "gameover" then
+        print()
+        print()
+        print("  GAME OVER  ")
+        print()
+        print("  APERTE ENTER PARA RECOMEÇAR  ")
+        print()
+        local line = io.read()
+        if line == "w" then
+          start()
+        else
+          start()
+        end
+      end
+    elseif control == 3 then 
+      -- BAU -- 
+      --Anda o personagem no mapa
+      map[playerPos.x][playerPos.y] = " "
+      playerPos = newPlayerPos
+      map[playerPos.x][playerPos.y] = "P"
+      -- abrir bau
+      Ictl = math.random(1,3)
+      if Ictl == 1 then
+        -- abre tela de selecionar nova espada
+        armour = {}
+        sword = fabricarEspada()
+        state = "newSword"
+        Screen:show(map, plr, commandsEqp, state, bt, armour, sword)
+        -- Pergunta se quer a espada
+        local askSword = io.read()
+        if askSword == "y" then
+          Player:desequiparSword(plr)
+          plr.sword = sword
+          Player:equiparSword(plr)
+          os.execute("clear")
+          io.write("Espada trocada, agora você possui ", plr.sword.Sname, "\n")
+        else
+          os.execute("clear")
+        end
+      elseif Ictl == 2 then
+        -- abre tela de selecionar nova armadura
+        armour = fabricarArmadura()
+        sword = {}
+        state = "newArmour"
+        Screen:show(map, plr, commandsEqp, state, bt, armour, sword)
+        -- Pergunta se quer a espada
+        local askArmour = io.read()
+        if askArmour == "y" then
+          Player:desequiparArmour(plr)
+          plr.armour = armour
+          Player:equiparArmour(plr)
+          os.execute("clear")
+          io.write("Armadura trocada, agora você possui ", plr.armour.Aname, "\n")
+        else
+          os.execute("clear")
+        end
+      elseif Ictl == 3 then
+        plr.potion = plr.potion + 1
+        os.execute("clear")
+        print("Pocao encontrada!")
+      else
+        print("error else chest")
+      end
+      state = "mapa"
+      Screen:show(map, plr, commandsMap, state, bt)
+    elseif control == 4 then 
+      -- PROXIMA FASE -- 
+      --Anda o personagem no mapa
+      playerPos = {x = 2, y = 2} -- pos inicial
+      map = resetMap(map)
+      map[playerPos.x][playerPos.y] = "P"
+      difficulty = difficulty + 1
+      state = "mapa"
+      os.execute("clear")
+      Screen:show(map, plr, commandsMap, state, bt)
+    else
+      Screen:show(map, plr, commandsMap, state, bt)
+    end
   end
 end
