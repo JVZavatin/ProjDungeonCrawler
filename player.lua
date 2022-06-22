@@ -64,63 +64,63 @@ end
 
 function Player:addStat(player) -- abrindo bau ganha 1 stat random
   control = math.random(1, 6)
-  curaBau = 5
+  curaLvl = 5
 
   if control == 1 then -- HP increase
-    io.write("HP maximo incrementado e ",curaBau," vida restaurada!\n")
+    io.write("HP maximo incrementado e ",curaLvl," vida restaurada!\n")
     player.max_hp = player.max_hp + 10
-    if player.hp+curaBau < player.max_hp then
-      player.hp = player.hp +curaBau
+    if player.hp+curaLvl < player.max_hp then
+      player.hp = player.hp +curaLvl
     else
       player.hp = player.max_hp
     end
     return player
 
   elseif control == 2 then -- Damage increase
-    io.write("Dano incrementado e ",curaBau," vida restaurada!\n")
+    io.write("Dano incrementado e ",curaLvl," vida restaurada!\n")
     player.damage = player.damage + 1
-    if player.hp+curaBau < player.max_hp then
-      player.hp = player.hp +curaBau
+    if player.hp+curaLvl < player.max_hp then
+      player.hp = player.hp +curaLvl
     else
       player.hp = player.max_hp
     end
     return player
 
   elseif control == 3 then -- Defense increase
-    io.write("Defesa incrementada e ",curaBau," vida restaurada!\n")
+    io.write("Defesa incrementada e ",curaLvl," vida restaurada!\n")
     player.defense = player.defense + 1
-    if player.hp+curaBau < player.max_hp then
-      player.hp = player.hp +curaBau
+    if player.hp+curaLvl < player.max_hp then
+      player.hp = player.hp +curaLvl
     else
       player.hp = player.max_hp
     end
     return player
 
   elseif control == 4 then -- Accuracy increase
-    io.write("Precisao incrementada e ",curaBau," vida restaurada!\n")
+    io.write("Precisao incrementada e ",curaLvl," vida restaurada!\n")
     player.accuracy = player.accuracy + 5
-    if player.hp+curaBau < player.max_hp then
-      player.hp = player.hp +curaBau
+    if player.hp+curaLvl < player.max_hp then
+      player.hp = player.hp +curaLvl
     else
       player.hp = player.max_hp
     end
     return player
 
   elseif control == 5 then -- Dexterity increase
-    io.write("Destreza incrementada e ",curaBau," vida restaurada!\n")
+    io.write("Destreza incrementada e ",curaLvl," vida restaurada!\n")
     player.dexterity = player.dexterity + 5
-    if player.hp+curaBau < player.max_hp then
-      player.hp = player.hp +curaBau
+    if player.hp+curaLvl < player.max_hp then
+      player.hp = player.hp +curaLvl
     else
       player.hp = player.max_hp
     end
     return player
 
   elseif control == 6 then -- Critical increase
-    io.write("Chance critica incrementado e ",curaBau," vida restaurada!\n")
+    io.write("Chance critica incrementado e ",curaLvl," vida restaurada!\n")
     player.critical = player.critical + 5
-    if player.hp+curaBau < player.max_hp then
-      player.hp = player.hp +curaBau
+    if player.hp+curaLvl < player.max_hp then
+      player.hp = player.hp +curaLvl
     else
       player.hp = player.max_hp
     end

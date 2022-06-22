@@ -45,7 +45,7 @@ function Batalha:enmToPlr(bt)
   if math.min(math.random(1, 100),60) < bt.enemy.critical then
     dmg = dmg*2
   end
-  if math.min(math.random(1, 100),60) < (bt.enemy.accuracy -     bt.player.dexterity) then
+  if math.min(math.random(1, 100),60) < (math.max(bt.enemy.accuracy -     bt.player.dexterity, 1)) then
     io.write("O inimigo errou!\n")
     return bt
   else

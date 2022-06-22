@@ -1,6 +1,6 @@
 math.randomseed( os.time() )
  
--- Fisher-Yates shuffle from http://santos.nfshost.com/shuffling.html
+-- Shufle
 function shuffle(t)
   for i = 1, #t - 1 do
     local r = math.random(i, #t)
@@ -21,7 +21,7 @@ function initialize_grid(w, h)
 end
 
  
--- average of a and b
+-- Avg
 function avg(a, b)
   return (a + b) / 2
 end
@@ -64,7 +64,7 @@ function make_maze(map, w, h, playerPos)
       if map[i][j] then
         table.insert(line, 'X')
       else
-        if math.random(1, 10) == 1 then
+        if math.random(1, 15) == 1 then
           table.insert(line, 'C')
         else
           table.insert(line, ' ')

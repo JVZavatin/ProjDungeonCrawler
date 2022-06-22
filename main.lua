@@ -36,22 +36,25 @@ commandsEqp = [[
   any: Descartar
 ]]
 
---vars glob
+--Configs
 difficulty = 1
-state = "mapa"
+state = "mapa" -- estado inicial
 map = {}
 mapW = 6 -- largura
 mapH = 6 -- proundidade
 playerPos = {x = 2, y = 2} -- pos inicial
+statesList = {
+  "mapa", "batalha", "gameover", "inventario", "newArmour", "newSword"
+}
+playerName = "Jhon"
 
 function start()
   os.execute("clear")
   -- batalha
   bt = {}
-  difficulty = 1
   -- Player
   playerPos = {x = 2, y = 2}
-  plr = Player:new("Jhon") -- nome
+  plr = Player:new(playerName) -- nome
   
   plr.sword = Sword:new(difficulty, 1)
   plr.armour = Armour:new(difficulty, 1)
@@ -289,7 +292,7 @@ while 1 == 1 do
       else
         Screen:show(map, plr, commandsMap, state, bt)
       end      
-    elseif control == 2 then 
+    elseif control == 2 then  -- deprecated
       -- BATALHA --
       --Anda o personagem no mapa
       map[playerPos.x][playerPos.y] = " "

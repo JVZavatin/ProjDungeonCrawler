@@ -1,7 +1,7 @@
 Armour = {}
 
 function Armour:new(difficulty, control)
-  ctl = control or math.random(1, 4)
+  ctl = control or math.random(2, 6)
   if ctl == 1 then
   	AnewObj = {
       Aname = "Trapos",
@@ -31,11 +31,25 @@ function Armour:new(difficulty, control)
       Adefense = 3 + difficulty,
       Adexterity = 0
     }
+  elseif ctl == 5 then
+  	AnewObj = {
+      Aname = "Cota de Malha",
+      Amax_hp = 8 + (4*difficulty),
+      Adefense = 3 + difficulty,
+      Adexterity = 5 + difficulty
+    }
+  elseif ctl == 6 then
+    AnewObj = {
+      Aname = "Placas com Escudo",
+      Amax_hp = 15 + (5*difficulty),
+      Adefense = 4 + difficulty,
+      Adexterity = 0
+    }
   else
     AnewObj = {
       Aname = "Armadura de Placa",
-      Amax_hp = 10 + (5*difficulty),
-      Adefense = 3 + difficulty,
+      Amax_hp = 15 + (5*difficulty),
+      Adefense = 4 + difficulty,
       Adexterity = 0
     }
   end
